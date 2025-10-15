@@ -6,20 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class AddTransactions {
-    //Prints any list its given
-    public static void printList(List<Transaction> transactions) {
+public class Ledger {
 
-        System.out.printf("%-15s │ %-15s │ %-30s │ %-30s │ $%-10s\n", "Date", "Time", "Description", "Vendor", "Amount");
-        System.out.println("─────────────────────────────────────────────────────────────────────────────────────────────────────────────────");
-
-        for (Transaction transaction : transactions) {
-            System.out.printf("%-15tD │ %-15tr │ %-30s │ %-30s │ %10.2f$\n", transaction.getDate(), transaction.getTime(), transaction.getDescription(), transaction.getVendor(), transaction.getAmount());
-        }
-    }
 
     //This will display all the transaction based on deposit or payment
-    public static List<Transaction> depositPayment(String depositOrPayment) {
+    public static void depositPayment(String depositOrPayment) {
         List<Transaction> transactions = FileManager.readFile();
         List<Transaction> depositsPayment = new ArrayList<>();
         for (Transaction transaction : transactions) {
@@ -33,7 +24,7 @@ public class AddTransactions {
                 }
             }
         }
-        return depositsPayment;
+        Main.printList(depositsPayment);
     }
 
     //get data to make a deposit or payment

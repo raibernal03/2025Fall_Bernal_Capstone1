@@ -9,7 +9,7 @@ public class Reports {
     static LocalDate today = LocalDate.now();
 
     //Month to Date
-    public static List<Transaction> mtd(){
+    public static void mtd(){
         List<Transaction> transactions = FileManager.readFile();
         List<Transaction> mtd = new ArrayList<>();
         //Variables for date and mtd
@@ -20,48 +20,49 @@ public class Reports {
                 mtd.add(t);
             }
         }
-        return mtd;
+        Main.printList(mtd);
     }
 
     //Previous Month
-    public static List<Transaction> previousMonth(){
+    public static void previousMonth(){
         YearMonth lastMonth = YearMonth.from(today).minusMonths(1);
         LocalDate prevMonthStart = lastMonth.atDay(1); // first day of previous month
         LocalDate prevMonthEnd = lastMonth.atEndOfMonth();
 
+        List<Transaction> transactions = FileManager.readFile(); // OG List
 
-        List<Transaction> transactions = FileManager.readFile();
         List<Transaction> previousMonth = new ArrayList<>();// List that will hold previous month transactions
+
         for (Transaction t: transactions){
             if(t.getDate().isBefore(prevMonthEnd) && t.getDate().isAfter(prevMonthStart)){
                 previousMonth.add(t);
             }
         }
-
-
-        return  previousMonth;
+        Main.printList(previousMonth); //Print list
     }
 
     //Year to Date
-    public static List<Transaction> ytd(){
+    public static void ytd(){
         List<Transaction> transactions = FileManager.readFile();
         List<Transaction> ytd = new ArrayList<>();
-        LocalDate ytdStart = today.withDayOfYear(1); // Jan 1 this year
+        LocalDate ytdStart = today.withDayOfYear(1); // Jan 1 2025 this year
         LocalDate ytdEnd = today;
         for(Transaction t: transactions){
             if (t.getDate().isBefore(ytdEnd) && t.getDate().isAfter(ytdStart)){
                 ytd.add(t);
             }
         }
-        return ytd;
+        Main.printList(ytd);
+
     }
 
+
     //Previous Year
-    public static List<Transaction> lastYear(){
+    public static void previousYear(){
         List<Transaction>  transactions = FileManager.readFile();
         List<Transaction> lastYear = new ArrayList<>();
         int ly = today.getYear() - 1;
-        LocalDate prevYearStart = LocalDate.of(ly, 1, 1);
+        LocalDate prevYearStart = LocalDate.of(ly, 1, 1);  // setting date to 01/01/ly
         LocalDate prevYearEnd = LocalDate.of(ly, 12, 31);
 
         for(Transaction t: transactions){
@@ -69,11 +70,12 @@ public class Reports {
                 lastYear.add(t);
             }
         }
-        return lastYear;
+        Main.printList(lastYear);
+
     }
 
     //Search by Vendor
-    public static List<Transaction> vendorSearch(String keyword) {
+    public static void vendorSearch(String keyword) {
         List<Transaction> transactions = FileManager.readFile();
         List<Transaction> vendorTransactions = new ArrayList<>();
 
@@ -82,6 +84,8 @@ public class Reports {
                 vendorTransactions.add(transaction);
             }
         }
-        return vendorTransactions;
+
+        Main.printList(vendorTransactions);
     }
+
 }

@@ -65,6 +65,7 @@ public class FileManager {
 
     //reads file for header
     public static void headerLogo(String logoPath) {
+        System.out.println("\n\n\n");
         try {
             FileReader fr = new FileReader(logoPath);
 
