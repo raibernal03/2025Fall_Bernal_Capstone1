@@ -7,13 +7,13 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            FileManager.headerLogo("src/main/resources/headers/accounting-ledger-app-ascii.txt");
             menu(scanner);
         }
     }
 
     //main menu
     public static void menu(Scanner scanner){
+        FileManager.headerLogo("src/main/resources/headers/accounting-ledger-app-ascii.txt");
 
         System.out.println("D) Deposit");
         System.out.println("P) Make Payment");
