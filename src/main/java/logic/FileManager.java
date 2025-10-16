@@ -77,7 +77,6 @@ public class FileManager {
 
             while ((line = reader.readLine()) != null) {
                 System.out.println(line);
-
             }
             reader.close();
 
@@ -88,5 +87,6 @@ public class FileManager {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        System.out.println("\n\n");
     }
 }

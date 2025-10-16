@@ -1,6 +1,5 @@
 package logic;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,7 +13,7 @@ public class Main {
     }
 
     //main menu
-    public static void menu(Scanner scanner) {
+    public static void menu(Scanner scanner){
 
         System.out.println("D) Deposit");
         System.out.println("P) Make Payment");
@@ -52,6 +51,7 @@ public class Main {
         System.out.println("P) Show all Payments");
         System.out.println("R) Reports");
         System.out.println("H) Home");
+        System.out.print("--> ");
 
         char choice = scanner.nextLine().toUpperCase().charAt(0);
         switch (choice) {
@@ -93,7 +93,6 @@ public class Main {
         System.out.println("3) Year to Date");
         System.out.println("4) Previous Year");
         System.out.println("5) Search by Vendor");
-        System.out.println("6) Custom Search");
         System.out.println("0) Back");
         System.out.print("--> ");
 
@@ -114,14 +113,12 @@ public class Main {
             case 3:
                 //send to year to date
                 Reports.ytd();
-
                 reportsMenu(scanner);
                 break;
             case 4:
                 //send to previous year
                 Reports.previousYear();
                 reportsMenu(scanner);
-
                 break;
             case 5:
                 //send to search by vendor
@@ -138,9 +135,7 @@ public class Main {
                 reportsMenu(scanner);
                 break;
         }
-
     }
-
 
     //Prints any list its given
     public static void printList(List<Transaction> transactions) {
