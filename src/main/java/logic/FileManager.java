@@ -42,7 +42,7 @@ public class FileManager {
         }
 
         //sorts list by date
-        transactions.sort(Comparator.comparing((Transaction t) -> t.getDate()).reversed());
+        transactions.sort(Comparator.comparing((Transaction t) -> t.getDate()));
 
         return transactions;
     }
@@ -65,7 +65,7 @@ public class FileManager {
 
     //reads file for header
     public static void headerLogo(String logoPath) {
-        System.out.println("\n\n\n");
+
         try {
             FileReader fr = new FileReader(logoPath);
 
@@ -87,6 +87,6 @@ public class FileManager {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        System.out.println("\n\n");
+
     }
 }

@@ -35,7 +35,6 @@
   * amount
   * constructor
   * getter & setter
-* Customer Search
 
 ### File Manager & CSV 👷‍♀️
 
@@ -43,55 +42,83 @@ An issue I had along the way was that my writer was writing to the csv file kind
 
 I also needed to take out the header line from the csv file
 
+
+
 ### Defensive Coding 🤺
 
-I used recursion for some pleases just in case the user inputs an incorrect character it'll let them try again
+I used try and catches when user is inputting and since its in a while loop it'll just go back 
 
 ```java
 public static void ledgerMenu(Scanner scanner) {
+    boolean running = true;
+    while (running) {
         FileManager.headerLogo("src/main/resources/headers/ledger-menu-ascii.txt");
         System.out.println("\n\nA) All - Displays all entries");
         System.out.println("D) Show all Deposits");
         System.out.println("P) Show all Payments");
         System.out.println("R) Reports");
         System.out.println("H) Home");
+        System.out.print("--> ");
+        try {
+            char choice = scanner.nextLine().toUpperCase().charAt(0);
+            switch (choice) {
+                case 'A':
+                    FileManager.headerLogo("src/main/resources/headers/all-transactions-ascii.txt");
+                    List<Transaction> transactions = FileManager.readFile();
+                    printList(transactions);
 
-        char choice = scanner.nextLine().toUpperCase().charAt(0);
-        switch (choice) {
-            case 'A':
-                FileManager.headerLogo("src/main/resources/headers/all-transactions-ascii.txt");
-                List<Transaction> transactions = FileManager.readFile();
-                printList(transactions);
-                ledgerMenu(scanner);
-                break;
-            case 'D':
-                //Show all positive transactions
-                FileManager.headerLogo("src/main/resources/headers/deposits-ascii.txt");
-                Ledger.depositPayment("deposits");
+                    break;
+                case 'D':
+                    //Show all positive transactions
+                    FileManager.headerLogo("src/main/resources/headers/deposits-ascii.txt");
+                    Ledger.depositPayment("deposits");
 
-                ledgerMenu(scanner);
-                break;
-            case 'P':
-                FileManager.headerLogo("src/main/resources/headers/payments-ascii.txt");
-                Ledger.depositPayment("payments");
-                ledgerMenu(scanner);
-                break;
-            case 'R':
-                reportsMenu(scanner);
-                break;
-            case 'H':
-                menu(scanner);
-                break;
-            default:
-                System.out.println("Invalid Choice, Please try again\n\n");
-                ledgerMenu(scanner);
+                    break;
+                case 'P':
+                    FileManager.headerLogo("src/main/resources/headers/payments-ascii.txt");
+                    Ledger.depositPayment("payments");
+                    break;
+                case 'R':
+                    reportsMenu(scanner);
+                    break;
+                case 'H':
+                    running = false;
+                    break;
+                default:
+                    System.out.println("Invalid Choice, Please try again\n\n");
+
+                    break;
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
     }
+}
 ```
+Also for the user input I added at `.toUpperCase` so that whatever the user inputs will be to upper case
+
+In my `Reports` class 
+
+```java
+public static void vendorSearch(String keyword) {
+        List<Transaction> transactions = FileManager.readFile();
+        List<Transaction> vendorTransactions = new ArrayList<>();
+
+        for(Transaction transaction : transactions) {
+            if(transaction.getVendor().toLowerCase().contains(keyword.toLowerCase())) {
+                vendorTransactions.add(transaction);
+            }
+        }
+
+        Main.printList(vendorTransactions);
+    }
+```
+ I use `transaction.getVendor().toLowerCase().contains(keyword.toLowerCase())` in the if statement instead of the `.equals` the user might niot want to type everything in 
+
 
 ### Something NEW I Learned 👩‍🎓
 
-Something new that I learned was how to use the date, it was honestly hard but I asked ai to give me a reference guide to dates in java and to give me some examples, and Ia lso watched a video that kinda went over how dates worked
+Something new that I learned was how to use the date, it was honestly hard, but I asked AI to give me a reference guide to dates in java and to give me some examples, and Ia lso watched a video that kinda went over how dates worked
 
 ### The Most Proud Of
 
@@ -128,6 +155,10 @@ public static void headerLogo(String logoPath) {
     }
 ```
 
+#### I also ordered my list by date
+In the FileManager class where I read the csv file I added `transactions.sort(Comparator.comparing((Transaction t) -> t.getDate()));` in order to order the list from oldest to nearest transaction
+I used AI to create csv file since I wanted transaction from earlier this year and from last year, the program only creates transactions for today and for the time you are creating it 
+
 ### Issues, Challenge, Bugs🪳
 
 Passing list through arguments at first
@@ -152,7 +183,7 @@ public class Ledger{
 
 ```
 
-The issue was that throughout the whole project the file would only read from the file once and pass it throughout the classes and methods, so if I added a deposit or a payment and I would go back to the view the transactions the transaction I just added wwould not be shown;
+The issue was that throughout the whole project the file would only read from the file once and pass it throughout the classes and methods, so if I added a deposit or a payment and I would go back to the view the transactions the transaction I just added would not be shown;
 
 My Solution
 
@@ -178,7 +209,7 @@ public class Ledger{
 
 I made it so that every time I need to print the list I will have to read the file again gain like in the example above
 
-### Hardest Bug 😭
-
+### Hardest Bug 😭🪳
+`FileManager.writeFile()` it was giving me a lot of issues at the beginning
 
 

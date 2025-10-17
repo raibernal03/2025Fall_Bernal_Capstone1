@@ -1,5 +1,6 @@
 package logic;
 
+import java.io.File;
 import java.util.List;
 import java.util.Scanner;
 
@@ -27,10 +28,15 @@ public class Main {
             char choice = scanner.nextLine().toUpperCase().charAt(0);
             switch (choice) {
                 case 'D':
+                    System.out.println("+++ ADDING A DEPOSIT +++");
                     Ledger.addTransaction(scanner, "positive");
+                    System.out.println("Deposit Successful");
                     break;
                 case 'P':
+                    System.out.println("--- ADDING A PAYMENT ---");
                     Ledger.addTransaction(scanner, "negative");
+                    System.out.println("Payment Successful");
+
                     break;
                 case 'L':
                     ledgerMenu(scanner);
@@ -121,21 +127,25 @@ public class Main {
                         break;
                     case 2:
                         //send to previous month
+                        FileManager.headerLogo("src/main/resources/headers/previous-month-report-ascii.txt");
                         Reports.previousMonth();
 
                         break;
                     case 3:
                         //send to year to date
+                        FileManager.headerLogo("src/main/resources/headers/current-year-report-ascii.txt");
                         Reports.ytd();
 
                         break;
                     case 4:
                         //send to previous year
+                        FileManager.headerLogo("src/main/resources/headers/previous-year-report-ascii.txt");
                         Reports.previousYear();
 
                         break;
                     case 5:
                         //send to search by vendor
+                        FileManager.headerLogo("src/main/resources/headers/search-by-vendor-ascii.txt");
                         System.out.print("Enter vendor name: ");
                         String vendor = scanner.nextLine();
                         System.out.println("\n");
