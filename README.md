@@ -210,6 +210,6 @@ public class Ledger{
 I made it so that every time I need to print the list I will have to read the file again gain like in the example above
 
 ### Hardest Bug 😭🪳
-`FileManager.writeFile()` it was giving me a lot of issues at the beginning
+`FileManager.writeFile()` it was giving me a lot of issues at the beginning, since it was writting ecerything in just one line even though I had the `\n` at the beginning and end of the write file. In the end I had to only write in at the beginning 
 
 
